@@ -1,17 +1,26 @@
-# checks users enter yes (y) or no (n)
+# Check that users have entered a valid
+# option based on a list
+def string_checker(question, valid_ans=("yes", "no")):
+    error = f"Please enter a valid option from the following list: {valid_ans}"
 
-def yes_no(question):
     while True:
-        response = input(question).lower()
 
-        # checks user response, question
-        # repeats if users don't enter yes / no
-        if response == "yes" or response == "y":
-            return "yes"
-        elif response == "no" or response == "n":
-            return "no"
-        else:
-            print("You did not choose a valid response")
+        # Get user response and amke sure it's lowercase
+        user_response = input(question).lower()
+
+        for item in valid_ans:
+            # check if the user response is a word in the list
+            if item == user_response:
+                return item
+
+            # check if the user response is the same as
+            # the first letter of an itme in the list
+            elif user_response == item[0]:
+                return item
+
+        # print error if user does not enter something that is valid
+        print(error)
+        print()
 
 
 def instruction():
@@ -19,41 +28,33 @@ def instruction():
     
     **** Instructions ****
     
-At the start of each round, the user and the computer each roll two dice. The initial number of points for each 
-player is the total shown by the dice. Then, taking turns, the user and computer each roll a single die and add the 
-result to their points. The goal is to get 13 points (or slightly less) for a given round. Once you are happy with 
-your number of points, you can ‘pass’.
+To begin, choose the number of rounds (or press <enter> for infinite mode).
 
-- If you go over 13, then you lose the round (and get zero points).
+Then play  against the computer. You need to choose R (rock),
+ P (paper) or S (scissor).
 
-- If the computer goes over 13, the round ends and your score is the number 
-of points that you have earned.
+The rules are as follows:
 
-- If the computer gets more points than you (eg: you get 10 and they get 11, 
-then you lose your score stays the same).
+o   Paper beats rock
+o   Rock beats scissors
+o   Scissors beats paper
 
-- If you get more points than the computer (but less than 14 points), 
-you win and add your points to your score. The computer’s score stays the same.
+Press <xxx> to end game at anytime 
 
-- If the first roll of your dice is a double, then your score 
-is increased by double the number of points, provided you win. 
-If the computer’s first roll of the dice is a double, then its 
-points are not doubled (this gives the human player a slight advantage).
-
-- The ultimate winner of the game is the first one to get to the specified score goal.
-
+Good Luck!
     ''')
 
 
 # Main routine
 print()
-print("🎲🎲Roll it 13 🎲🎲")
+print("Rock / Paper / Scissors Game")
 print()
 
 # loop for testing purposes
 
-
-want_instructions = yes_no("Do you want to read the instruction?")
+# ask user if they want to see the instructions and display
+# them if requested
+want_instructions = string_checker("Do you want to read the instruction?")
 
 # checks users enter yes (y) or no (n)
 if want_instructions == "yes":
